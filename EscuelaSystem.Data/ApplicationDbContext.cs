@@ -12,5 +12,6 @@ namespace EscuelaSystem.Data
         {
         }
         public DbSet<Materia> Materias { get; set; }
+        public DbSet<Alumno> Alumno { get; set; }
     }
 }
