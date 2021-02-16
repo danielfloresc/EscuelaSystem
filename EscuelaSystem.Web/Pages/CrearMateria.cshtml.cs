@@ -9,22 +9,31 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace EscuelaSystem.Web.Pages
 {
-    public class MateriasModel : PageModel
+    public class CrearMateriaModel : PageModel
     {
         private readonly IMateriaRepository _materiaRepository;
 
-        public MateriasModel(IMateriaRepository materiaRepository)
+        public CrearMateriaModel(IMateriaRepository materiaRepository)
         {
             _materiaRepository = materiaRepository;
         }
 
         [BindProperty]
-        public IEnumerable<Materia> Materias { get; set; }
-
-        public IActionResult OnGet()
+        public Materia Materia { get; set; }
+        public void OnGet()
         {
-            Materias = _materiaRepository.List();
-            return Page();
+        }
+
+        public IActionResult OnPost()
+        {
+            if (!ModelState.IsValid)
+            {
+                return Page();
+            }
+
+            _materiaRepository.Insert(Materia);
+
+            return RedirectToPage("./Materias");
         }
     }
 }
